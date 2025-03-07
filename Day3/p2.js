@@ -1,10 +1,10 @@
 const http = require('http');
-
+const users=[];
 const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json'});
     if(req.url==='/getdata' && req.method==='GET'){
-        const data = {name: 'John Doe', age: 30};
-        res.end(JSON.stringify(data));
+ 
+        res.end(JSON.stringify(users));
         return;
     }
     else if(req.url==='/setdata' && req.method==='POST'){
@@ -16,6 +16,7 @@ const server = http.createServer((req, res) => {
         req.on('end', () => {
             const data = JSON.parse(body);
             console.log('Received data:', data);
+            users.push(data);
             res.end(JSON.stringify({message: 'Data received successfully'}));
         });
         return;
