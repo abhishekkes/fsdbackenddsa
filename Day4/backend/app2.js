@@ -1,8 +1,11 @@
 const express = require('express')
+
+const cors = require('cors')
 const fs= require('fs/promises')
 const app = express()
 let users =[];
 app.use(express.json())
+app.use(cors())
 const readdata=async ()=>{
     users=JSON.parse(await fs.readFile('./data.json','utf8'))
 }
