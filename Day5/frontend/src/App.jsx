@@ -12,6 +12,7 @@ const App = () => {
       <h1 style={{ backgroundColor: 'greenyellow' }}>User Registration System</h1>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={
           <>
             <Register />

@@ -1,25 +1,41 @@
 import React from 'react'
 import axios from 'axios'
-const Register = () => {
-    const handleregister =async (e) =>{
-        e.preventDefault()
-        const user = {
-            name: e.target.name.value,
-            age: e.target.age.value
-        }
-        await axios.post('https://fsdbackenddsb2.onrender.com/users', user)
-       alert('User Registered Successfully')
+import { useNavigate } from 'react-router-dom'
 
+const Register = () => {
+  const navigate = useNavigate();
+
+  const handleregister = async (e) => {
+    e.preventDefault();
+    const user = {
+      name: e.target.name.value,
+      age: e.target.age.value
+    };
+
+    try {
+      const res = await axios.post('https://fsdbackenddsb2.onrender.com/users', user);
+      const { id, password } = res.data.data;
+
+      alert(`Registration Successful!\nYour User ID: ${id}\nYour Password: ${password}`);
+      navigate('/login'); // Navigate to login page
+    } catch (error) {
+      console.error(error);
+      alert('Registration failed');
     }
+  };
+
   return (
     <div>
       <h1>Register User</h1>
       <form onSubmit={handleregister}>
-        <label>Name:</label> <input type='text' name='name' />
-        <label>Age:</label> <input type='text' name='age' />
-        <button type='submit'>Register</button>
+        <label>Name:</label>
+        <input type="text" name="name" required />
+        <label>Age:</label>
+        <input type="text" name="age" required />
+        <button type="submit">Register</button>
       </form>
     </div>
-  )
-}
-export default Register
+  );
+};
+
+export default Register;
