@@ -14,9 +14,9 @@ const Register = () => {
 
     try {
       const res = await axios.post('https://fsdbackenddsa.onrender.com/users', user);
-      // const { id, password } = res.data.data;
+      const { id, password } = res.data.data;
 
-      alert(`Registration Successful!\nYour User ID: `);
+      alert(`Registration Successful!\nYour User ID:${id} and Password ${password} `);
       navigate('/'); // Navigate to login page
     } catch (error) {
       console.error(error);
