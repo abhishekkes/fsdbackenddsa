@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ id: '', password: '' });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -14,6 +16,7 @@ const Login = () => {
       const res = await axios.get(`https://fsdbackenddsb2.onrender.com/users/${loginData.id}`);
       if (res.data.password === loginData.password) {
         alert('Login Successful!');
+        navigate('/dashboard'); // ✅ Redirect to dashboard
       } else {
         alert('Incorrect password!');
       }
