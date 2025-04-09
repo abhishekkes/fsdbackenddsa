@@ -11,14 +11,28 @@ const readdata=async ()=>{
 const writedata=async ()=>{
    await fs.writeFile('./data.json',JSON.stringify(users))
 }
+const generatePassword = () => {
+    return Math.random().toString(36).slice(-8); 
+  };
 readdata();
 app.get('/users', async (req, res) => {
     res.json(users);
 })
+// Get user by ID (for login)
+app.get('/users/:id', (req, res) => {
+    const uid = req.params.id;
+    const user = users.find(u => u.id == uid);
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+    res.json(user); 
+});
+
 app.post('/users',(req,res)=>{
     const {name,age}=req.body;
     const newid=users.length>0?users[users.length-1].id+1:1;
-    const newuser={id:newid,name,age};
+    const newpassword = generatePassword();
+    const newuser={id:newid,name,age,password:newpassword};
     users.push(newuser);
     writedata();
     res.status(200).json({message: 'user register success',data: newuser});
