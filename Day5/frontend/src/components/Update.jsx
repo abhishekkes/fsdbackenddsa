@@ -6,7 +6,8 @@ const Update = () => {
         const id = e.target.id.value
         const name = e.target.name.value
         const age = e.target.age.value
-        const data={name,age}
+        const password=e.target.password.value;
+        const data={name,age,password}
         await axios.put(`https://fsdbackenddsa.onrender.com/users/${id}`,data)
         alert("Success")
     }
@@ -26,6 +27,10 @@ const Update = () => {
         <label>
           Age:
           <input type="text" name="age"  />
+        </label>
+        <label>
+          Password:
+          <input type="password" name="password"  />
         </label>
         <button type="submit">Update</button>
       </form>

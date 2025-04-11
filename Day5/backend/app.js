@@ -40,9 +40,9 @@ app.post('/users',(req,res)=>{
 })
 app.put('/users/:id/',(req,res) => {
     const uid=req.params.id;
-    const {name,age}=req.body;
+    const {name,age,password}=req.body;
     const userIndex=users.findIndex(user=>user.id==uid);
-    if(!name || !age) {
+    if(!name || !age || !password) {
         res.status(400).json({message: 'name and age are required'});
         return;
     }
@@ -53,6 +53,7 @@ app.put('/users/:id/',(req,res) => {
     else{
         users[userIndex].name=name;
         users[userIndex].age=age;
+        users[userIndex].password=password;
         writedata();
         res.status(200).json({message: 'user updated successfully',data: users[userIndex]});
     }  
